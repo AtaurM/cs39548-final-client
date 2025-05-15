@@ -8,17 +8,44 @@ import { Link } from "react-router-dom";
 
 // Take in props data to construct the component
 const CampusView = (props) => {
-  const {campus} = props;
+
+  const {campus, deleteCampus } = props;
+
+  if (!campus) {
+    return <p>Loading campus...</p>;
+  }
+
+  const { name, address, description, imageUrl, students } = campus
   
+  const defaultUrl = "https://s29068.pcdn.co/wp-content/uploads/campus-shot-768x432.jpg.optimal.jpg";
+
   // Render a single Campus view with list of its students
   return (
     <div>
-      <h1>Campus Name: {campus.name}</h1>
-      <p>Address: {campus.address}</p>
-      <p>Description: {campus.description}</p>
+      <h1>Campus Name: {name}</h1>
+      <p>Address: {address}</p>
+      
+      <img
+        src={imageUrl}
+        alt={`${name}`}
+        onError={e => {
+          e.currentTarget.onerror = null;
+          e.currentTarget.src = defaultUrl;
+        }}
+        width="500"
+      />
+
+      <p>Description: {description}</p>
+
+      <Link to={`/editcampus/${campus.id}`}>
+        <button>Edit Campus</button>
+      </Link>
+      <br/>
+      <button onClick={() => deleteCampus(campus.id)}>Delete Campus</button>
+      
       <p>List of Students:</p>
-      {campus.students && campus.students.length > 0 ? (
-        campus.students.map(student => {
+      {students && students.length > 0 ? (
+        students.map(student => {
           const fullName = `${student.firstname} ${student.lastname}`;
           return (
             <div key={student.id}>
@@ -34,6 +61,8 @@ const CampusView = (props) => {
       ) : (
         <p>No students are currently enrolled at this campus.</p>
       )}
+      <br/><br/>
+
     </div>
   );
 };

@@ -31,7 +31,21 @@ const AllCampusesView = (props) => {
           </Link>
           <h4>campus id: {campus.id}</h4>
           <p>{campus.address}</p>
+      
+          <img
+            src={campus.imageUrl}
+            alt={`${campus.name}`}
+            onError={e => {
+              e.currentTarget.onerror = null;
+              e.currentTarget.src = campus.defaultUrl;
+            }}
+            width="500"
+          />
+          
           <p>{campus.description}</p>
+          <Link to={`/editcampus/${campus.id}`}>
+            <button>Edit Campus</button>
+          </Link>
           <button onClick={() => deleteCampus(campus.id)}>Delete</button>
           <hr/>
         </div>

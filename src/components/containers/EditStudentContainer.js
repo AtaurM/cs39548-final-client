@@ -31,16 +31,14 @@ class EditStudentContainer extends Component {
   }
 
   componentDidMount() {
-    const { student } = this.props;
-    if (student) {
-      this.setState({
-        firstname: student.firstname,
-        lastname: student.lastname,
-        email: student.email,
-        imageURL: student.imageUrl,
-        gpa: student.gpa,
-        campusId: student.campusId
-      });
+    const studentId = this.props.match.params.id;
+    this.props.fetchStudent(studentId);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.student !== this.props.student && this.props.student) {
+      const { firstname, lastname, email, imageUrl, gpa, campusId } = this.props.student;
+      this.setState({ firstname, lastname, email, imageUrl, gpa, campusId });
     }
   }
 
