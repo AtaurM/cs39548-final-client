@@ -20,6 +20,9 @@ class NewStudentContainer extends Component {
     this.state = {
       firstname: "", 
       lastname: "", 
+      email: "",
+      imageUrl: "",
+      gpa: null,
       campusId: null, 
       redirect: false, 
       redirectId: null
@@ -37,10 +40,17 @@ class NewStudentContainer extends Component {
   handleSubmit = async event => {
     event.preventDefault();  // Prevent browser reload/refresh after submit.
 
+    let campusId = this.state.campusId === '' ? null : parseInt(this.state.campusId, 10);
+
+    let gpa = this.state.gpa === '' ? null : parseFloat(this.state.gpa);
+
     let student = {
         firstname: this.state.firstname,
         lastname: this.state.lastname,
-        campusId: this.state.campusId
+        email: this.state.email,
+        imageUrl: this.state.imageUrl,
+        gpa,
+        campusId
     };
     
     // Add new student in back-end database
@@ -50,6 +60,9 @@ class NewStudentContainer extends Component {
     this.setState({
       firstname: "", 
       lastname: "", 
+      email: "",
+      imageUrl: "",
+      gpa: null,
       campusId: null, 
       redirect: true, 
       redirectId: newStudent.id
