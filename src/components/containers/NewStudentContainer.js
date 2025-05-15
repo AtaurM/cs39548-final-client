@@ -44,11 +44,17 @@ class NewStudentContainer extends Component {
 
     let gpa = this.state.gpa === '' ? null : parseFloat(this.state.gpa);
 
+    let imageUrl = this.state.imageUrl;
+
+    if (imageUrl === '') {
+      imageUrl = "https://static.vecteezy.com/system/resources/thumbnails/024/983/914/small_2x/simple-user-default-icon-free-png.png"
+    }
+
     let student = {
         firstname: this.state.firstname,
         lastname: this.state.lastname,
         email: this.state.email,
-        imageUrl: this.state.imageUrl,
+        imageUrl,
         gpa,
         campusId
     };
