@@ -6,13 +6,29 @@ passes data (if any) as props to the corresponding View component.
 If needed, it also defines the component's "connect" function.
 ================================================== */
 import Header from './Header';
-import React, { Component } from "react";
+import { Component } from "react";
 import { connect } from "react-redux";
-import { fetchStudentThunk } from "../../store/thunks";
+import { Redirect } from 'react-router-dom';
+
+import { fetchStudentThunk, deleteStudentThunk } from '../../store/thunks';
+
 import { StudentView } from "../views";
-import { deleteStudentThunk } from '../../store/thunks';
 
 class StudentContainer extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      redirect: false,
+      redirectTo: '/students'
+    };
+  }
+
+  handleDelete = async (studentId) => {
+    await this.props.deleteStudent(studentId);
+    this.setState({redirect: true});
+  }
+
   // Get student data from back-end database
   componentDidMount() {
     //getting student ID from url
@@ -21,10 +37,18 @@ class StudentContainer extends Component {
 
   // Render Student view by passing student data as props to the corresponding View component
   render() {
+    
+    if (this.state.redirect) {
+      return <Redirect to="/students" />;
+    }
+
     return (
       <div>
         <Header />
-        <StudentView student={this.props.student} />
+        <StudentView
+          student={this.props.student}
+          deleteStudent={this.handleDelete}
+        />
       </div>
     );
   }

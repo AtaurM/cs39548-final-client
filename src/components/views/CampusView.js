@@ -35,15 +35,22 @@ const CampusView = (props) => {
         width="500"
       />
 
-      <p>Description: {description}</p>
+      <h3>Description: </h3>
+      <p>{description}</p>
 
       <Link to={`/editcampus/${campus.id}`}>
         <button>Edit Campus</button>
       </Link>
       <br/>
+
       <button onClick={() => deleteCampus(campus.id)}>Delete Campus</button>
+      <br/>
       
-      <p>List of Students:</p>
+      <Link to={`/students`}>
+        <button>Enroll Students</button>
+      </Link>
+
+      <h1>List of Students:</h1>
       {students && students.length > 0 ? (
         students.map(student => {
           const fullName = `${student.firstname} ${student.lastname}`;
@@ -55,6 +62,7 @@ const CampusView = (props) => {
               <Link to={`/editstudent/${student.id}`}>
                 <button>Edit Student</button>
               </Link>
+              <button onClick={() => props.onUnenroll(student.id)} >Unenroll Student</button>
             </div>
           );
         })
