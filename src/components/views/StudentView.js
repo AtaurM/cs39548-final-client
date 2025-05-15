@@ -41,6 +41,14 @@ const StudentView = (props) => {
       ) : (
         <p>This student is not enrolled at a campus.</p>
       )}
+
+      <Link to={`/editstudent/${student.id}`}>
+        <button>Edit Student</button>
+      </Link>
+      <Link to={`/students`}>
+        <button>Return to All Students</button>
+      </Link>
+
     </div>
   );
 };
