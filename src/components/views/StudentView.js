@@ -48,6 +48,7 @@ const StudentView = (props) => {
       <button onClick={() => deleteStudent(student.id)}>Delete</button>
       
       <br/>
+      <br/>
       <Link to={`/students`}>
         <button>Return to All Students</button>
       </Link>
