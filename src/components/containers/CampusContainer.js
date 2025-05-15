@@ -6,11 +6,12 @@ passes data (if any) as props to the corresponding View component.
 If needed, it also defines the component's "connect" function.
 ================================================== */
 import Header from './Header';
-import React, { Component } from "react";
+import { Component } from "react";
 import { connect } from "react-redux";
 import { fetchCampusThunk } from "../../store/thunks";
 
 import { CampusView } from "../views";
+import { deleteCampusThunk } from '../../store/thunks';
 
 class CampusContainer extends Component {
   // Get the specific campus data from back-end database
@@ -43,6 +44,7 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     fetchCampus: (id) => dispatch(fetchCampusThunk(id)),
+    deleteCampus: (campusId) => dispatch(deleteCampusThunk(campusId))
   };
 };
 
